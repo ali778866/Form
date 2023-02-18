@@ -11,7 +11,7 @@
         <input type="text" name="emailid" required />
         <label>Phone</label>
         <input type="tel" name="phonenumber" required />
-        <button> Submit </button>
+        <button>Submit</button>
     </form>
     <ul id="listofUser"></ul>
     <script>
@@ -25,16 +25,28 @@
                 email,
                 phone
             }
-            localStorage.setItem(obj.email, JSON.stringify(obj))
-            showUser(obj)
-        }
-        function showUser(obj) {
-            const parantElem =document.getElementById('listofUser')
-            const childElem = document.createElement('li')
-            childElem.textContent = obj.name+ ' - '+obj.email+' - '+obj.phone;
-            parantElem.appendChild(childElem)
+            localStorage.setItem(obj.email, JSON.stringify(obj));
+            showUser(obj);
+            event.target.reset();
         }
 
+        function showUser(obj) {
+            const parentElem = document.getElementById('listofUser');
+            const childElem = document.createElement('li');
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.onclick = () => {
+                parentElem.removeChild(childElem);
+                localStorage.removeItem(obj.email);
+            };
+            childElem.textContent = obj.name + ' - ' + obj.email + ' - ' + obj.phone;
+            childElem.appendChild(deleteButton);
+            parentElem.appendChild(childElem);
+        }
+
+        Object.keys(localStorage).forEach((key) => {
+            showUser(JSON.parse(localStorage.getItem(key)));
+        });
     </script>
 </body>
 </html>
