@@ -33,13 +33,26 @@
         function showUser(obj) {
             const parentElem = document.getElementById('listofUser');
             const childElem = document.createElement('li');
+            const editButton = document.createElement('button');
             const deleteButton = document.createElement('button');
+            editButton.textContent = 'Edit';
             deleteButton.textContent = 'Delete';
+            editButton.onclick = () => {
+                // set form values to the selected user data
+                const form = document.querySelector('form');
+                form.username.value = obj.name;
+                form.emailid.value = obj.email;
+                form.phonenumber.value = obj.phone;
+                // delete user data from the screen and local storage
+                parentElem.removeChild(childElem);
+                localStorage.removeItem(obj.email);
+            };
             deleteButton.onclick = () => {
                 parentElem.removeChild(childElem);
                 localStorage.removeItem(obj.email);
             };
             childElem.textContent = obj.name + ' - ' + obj.email + ' - ' + obj.phone;
+            childElem.appendChild(editButton);
             childElem.appendChild(deleteButton);
             parentElem.appendChild(childElem);
         }
