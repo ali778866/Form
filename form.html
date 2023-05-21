@@ -70,9 +70,17 @@
                 localStorage.removeItem(obj.email);
             };
             deleteButton.onclick = () => {
-                parentElem.removeChild(childElem);
-                localStorage.removeItem(obj.email);
+             axios.delete(`https://crudcrud.com/api/4cf5c467eafc4109827517ff4dc8394f/appointment/${obj._id}`)
+                .then((response) => {
+                if (response.status === 200) {
+                       parentElem.removeChild(childElem);
+                  }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
             };
+
             childElem.textContent = obj.name + ' - ' + obj.email + ' - ' + obj.phone;
             childElem.appendChild(editButton);
             childElem.appendChild(deleteButton);
