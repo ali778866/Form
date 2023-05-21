@@ -14,6 +14,7 @@
         <button>Submit</button>
     </form>
     <ul id="listofUser"></ul>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
     <script>
         function saveToLocalStorage(event) {
             event.preventDefault();
@@ -25,8 +26,15 @@
                 email,
                 phone
             }
-            localStorage.setItem(obj.email, JSON.stringify(obj));
-            showUser(obj);
+            axios.post("https://crudcrud.com/api/4cf5c467eafc4109827517ff4dc8394f/appointment", obj)
+                .then((respone)=>{
+                    console.log(respone)
+                })
+                .catch((error)=>{
+                    console.log(error)
+                })
+            // localStorage.setItem(obj.email, JSON.stringify(obj));
+            // showUser(obj);
             event.target.reset();
         }
 
