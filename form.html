@@ -38,6 +38,20 @@
             event.target.reset();
         }
 
+        window.addEventListener("DOMContentLoaded", () => {
+            axios.get("https://crudcrud.com/api/4cf5c467eafc4109827517ff4dc8394f/appointment")
+            .then((response)=>{
+                console.log(response);
+
+                for(var i=0;i<response.data.length; i++){
+                    showUser(response.data[i]);
+                }
+            })
+            .catch((error)=>{
+                console.log(error);
+            })
+        })
+
         function showUser(obj) {
             const parentElem = document.getElementById('listofUser');
             const childElem = document.createElement('li');
